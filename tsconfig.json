@@ -5,8 +5,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "jsx": "react", //追記
-    "esModuleInterop": true, //追記
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -14,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "jsx": "react-jsx", //追記
 
     /* Linting */
     "strict": true,
