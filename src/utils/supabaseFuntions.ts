@@ -5,11 +5,16 @@ export const getInfo = async () => {
   console.log(article.data);
   return article.data;
 };
-export const addArticle = async (author: string, contents: string) => {
+export const addArticle = async (
+  id: string,
+  author: string,
+  contents: string
+) => {
   const response = await supabase
     .from("article")
     .insert([
       {
+        id,
         author,
         contents,
       },
@@ -20,12 +25,32 @@ export const addArticle = async (author: string, contents: string) => {
   }
 };
 
-export const addCategory = async (category: string) => {
-  const response = await supabase
-    .from("category")
-    .insert([{ category }])
+export const addCategory = async (article_id: string, category_id: string) => {
+  //取得したcategoryIdを中間テーブルに追加
+  const addCategoryId = await supabase
+    .from("article_category")
+    .insert([
+      {
+        article_id,
+        category_id,
+      },
+    ])
     .select();
-  if (response.data !== null) {
-    return response.data[0];
+  console.log(addCategoryId);
+  if (addCategoryId.error || !addCategoryId.data) {
+    console.error("Failed to get article`s category:", addCategoryId.error);
+    return;
+  }
+
+  //中間テーブルに追加したcategoryIdを元にcategoryテーブルからカテゴリ情報を取得
+  const category = await supabase
+    .from("category")
+    .select("*")
+    .eq("id", category_id)
+    .single();
+  console.log(category);
+
+  if (category.data !== null) {
+    return category.data[0];
   }
 };

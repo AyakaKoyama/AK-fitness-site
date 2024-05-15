@@ -15,9 +15,10 @@ import { Article } from "./domain/Article";
 import { addArticle, addCategory } from "./utils/supabaseFuntions";
 
 export type Inputs = {
+  articleID: string;
   author: string;
   contents: string;
-  category: string;
+  categoryID: string;
 };
 export const RegisterArticle = () => {
   const {
@@ -32,17 +33,25 @@ export const RegisterArticle = () => {
     console.log(data);
 
     try {
-      const addArticleData = await addArticle(data.author, data.contents);
-      console.log(data.author, data.contents);
+      const addArticleData = await addArticle(
+        data.articleID,
+        data.author,
+        data.contents
+      );
+      console.log(data.articleID, data.author, data.contents);
 
-      const addCategoryData = await addCategory(data.category);
-      console.log(data.category);
+      const addCategoryData = await addCategory(
+        data.articleID,
+        data.categoryID
+      );
+      console.log(data.articleID, data.categoryID);
 
       setArticles([
         {
+          articleID: addArticleData.articleID,
           author: addArticleData.author,
           contents: addArticleData.contents,
-          category: addCategoryData.category,
+          category: addCategoryData.categoryID,
         },
       ]);
       console.log(articles);
@@ -58,6 +67,25 @@ export const RegisterArticle = () => {
         <Heading data-testid="title" color="gray.700">
           新規投稿
         </Heading>
+        <Box p={3}>
+          <FormControl isInvalid={!!errors.articleID}>
+            <FormLabel>記事ID(英字のみ可)</FormLabel>
+            <Input
+              data-testid="articleID"
+              placeholder="好きな英単語を入力"
+              {...register("articleID", {
+                required: "記事IDの入力は必須です",
+                pattern: {
+                  value: /^[A-Za-z]+$/i,
+                  message: "英字で入力してください",
+                },
+              })}
+            />
+            <FormErrorMessage>
+              {errors.articleID && errors.articleID.message}
+            </FormErrorMessage>
+          </FormControl>
+        </Box>
         <Box p={3}>
           <FormControl isInvalid={!!errors.author}>
             <FormLabel>著者</FormLabel>
@@ -88,12 +116,12 @@ export const RegisterArticle = () => {
           </FormControl>
         </Box>
         <Box p={3}>
-          <FormControl isInvalid={!!errors.category}>
+          <FormControl isInvalid={!!errors.categoryID}>
             <FormLabel>カテゴリ</FormLabel>
             <Select
-              data-testid="category"
+              data-testid="categoryID"
               placeholder="カテゴリ選択"
-              {...register("category", { required: "選択は必須です" })}
+              {...register("categoryID", { required: "選択は必須です" })}
             >
               <option value="1">食事</option>
               <option value="2">運動</option>
@@ -101,9 +129,9 @@ export const RegisterArticle = () => {
               <option value="4">美容</option>
               <option value="5">アドバイス</option>
             </Select>
-            {errors.category && (
+            {errors.categoryID && (
               <FormErrorMessage>
-                {errors.category && errors.category.message}
+                {errors.categoryID && errors.categoryID.message}
               </FormErrorMessage>
             )}
           </FormControl>

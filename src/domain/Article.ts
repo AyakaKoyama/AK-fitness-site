@@ -1,5 +1,6 @@
 export class Article {
   constructor(
+    public articleID: string,
     public author: string,
     public contents: string,
     public category: category | null
