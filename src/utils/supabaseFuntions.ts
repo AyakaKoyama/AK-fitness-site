@@ -39,7 +39,7 @@ export const addCategory = async (article_id: string, category_id: string) => {
   console.log(addCategoryId);
   if (addCategoryId.error || !addCategoryId.data) {
     console.error("Failed to get article`s category:", addCategoryId.error);
-    return;
+    return null;
   }
 
   //中間テーブルに追加したcategoryIdを元にcategoryテーブルからカテゴリ情報を取得
@@ -49,8 +49,10 @@ export const addCategory = async (article_id: string, category_id: string) => {
     .eq("id", category_id)
     .single();
   console.log(category);
-
-  if (category.data !== null) {
-    return category.data[0];
+  if (!category.data) {
+    console.error("Failed to get category:", category.error);
+    return null;
   }
+
+  return category.data;
 };

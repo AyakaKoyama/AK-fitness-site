@@ -8,7 +8,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Article } from "./domain/Article";
@@ -28,6 +28,10 @@ export const RegisterArticle = () => {
   } = useForm<Inputs>();
   const navigate = useNavigate();
   const [articles, setArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    console.log("Articles state after update:", articles);
+  }, [articles]); // articles が更新されたときに実行
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
@@ -51,10 +55,10 @@ export const RegisterArticle = () => {
           articleID: addArticleData.articleID,
           author: addArticleData.author,
           contents: addArticleData.contents,
-          category: addCategoryData.categoryID,
+          category: addCategoryData.id,
         },
       ]);
-      console.log(articles);
+      console.log(addArticleData);
       navigate(`/`);
     } catch (error) {
       console.error("Failed to submit form data:", error);
