@@ -1,5 +1,6 @@
 import { supabase } from "./supabase";
 
+//仮表示用
 export const getInfo = async () => {
   const article = await supabase.from("article").select("*");
   console.log(article.data);

@@ -4,7 +4,6 @@ import { ViewArticle } from "./ViewArticle";
 import { RegisterArticle } from "./RegisterArticle";
 
 export const Routers = memo(() => {
-  console.log("Router component is rendering");
   return (
     <Routes>
       <Route path="*" element={<ViewArticle />} />
