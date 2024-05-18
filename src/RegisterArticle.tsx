@@ -7,6 +7,7 @@ import {
   Heading,
   Input,
   Select,
+  Textarea,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -77,6 +78,7 @@ export const RegisterArticle = () => {
             <Input
               data-testid="articleID"
               placeholder="好きな英単語を入力"
+              size="sm"
               {...register("articleID", {
                 required: "記事IDの入力は必須です",
                 pattern: {
@@ -96,6 +98,7 @@ export const RegisterArticle = () => {
             <Input
               data-testid="author"
               placeholder="著者"
+              size="sm"
               {...register("author", { required: "著者名の入力は必須です" })}
             />
             <FormErrorMessage>
@@ -106,7 +109,7 @@ export const RegisterArticle = () => {
         <Box p={3}>
           <FormControl isInvalid={!!errors.contents}>
             <FormLabel>記事</FormLabel>
-            <Input
+            <Textarea
               data-testid="contents"
               size="lg"
               placeholder="投稿内容を入力してください"
@@ -125,6 +128,7 @@ export const RegisterArticle = () => {
             <Select
               data-testid="categoryID"
               placeholder="カテゴリ選択"
+              size="sm"
               {...register("categoryID", { required: "選択は必須です" })}
             >
               <option value="1">食事</option>
