@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
-import { Routers } from "./Routers.tsx";
+import { ArticleManager } from "./components/ArticleManager.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider>
       <BrowserRouter>
-        <Routers />
+        <ArticleManager />
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>

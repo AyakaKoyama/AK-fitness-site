@@ -9,11 +9,10 @@ import {
   Select,
   Textarea,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Article } from "./domain/Article";
-import { addArticle, addCategory } from "./utils/supabaseFuntions";
+import { Article } from "../domain/Article";
+import { addArticle, addCategory } from "../utils/supabaseFuntions";
 
 export type Inputs = {
   articleID: string;
@@ -21,18 +20,18 @@ export type Inputs = {
   contents: string;
   categoryID: string;
 };
-export const RegisterArticle = () => {
+
+type RegisterArticleProps = {
+  setArticles: React.Dispatch<React.SetStateAction<Article[]>>;
+};
+
+export const RegisterArticle = ({ setArticles }: RegisterArticleProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
   const navigate = useNavigate();
-  const [articles, setArticles] = useState<Article[]>([]);
-
-  useEffect(() => {
-    console.log("Articles state after update:", articles);
-  }, [articles]); // articles が更新されたときに実行
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);

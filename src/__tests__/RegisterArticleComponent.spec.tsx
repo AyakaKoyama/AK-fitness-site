@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { RegisterArticle } from "../RegisterArticle";
+import { RegisterArticle } from "../components/RegisterArticle";
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 
 const mockAddArticles = jest.fn().mockResolvedValue({
@@ -28,10 +28,13 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigator,
 }));
 
+//setArticlesモック化
+const mockSetArticles = jest.fn();
+
 test("タイトルが表示されること", async () => {
   render(
     <BrowserRouter>
-      <RegisterArticle />
+      <RegisterArticle setArticles={mockSetArticles} />
     </BrowserRouter>
   );
 
@@ -42,7 +45,7 @@ test("タイトルが表示されること", async () => {
 });
 
 test("記事IDが未入力の場合にエラーメッセージが表示されること", async () => {
-  render(<RegisterArticle />);
+  render(<RegisterArticle setArticles={mockSetArticles} />);
 
   // 新規登録ボタンをクリック
   const registerButton = screen.getByTestId("register-button");
@@ -57,7 +60,7 @@ test("記事IDが未入力の場合にエラーメッセージが表示される
 });
 
 test("著者名が未入力の場合にエラーメッセージが表示されること", async () => {
-  render(<RegisterArticle />);
+  render(<RegisterArticle setArticles={mockSetArticles} />);
 
   // 新規登録ボタンをクリック
   const registerButton = screen.getByTestId("register-button");
@@ -72,7 +75,7 @@ test("著者名が未入力の場合にエラーメッセージが表示され�
 });
 
 test("投稿内容が未入力の場合にエラーメッセージが表示されること", async () => {
-  render(<RegisterArticle />);
+  render(<RegisterArticle setArticles={mockSetArticles} />);
 
   // 新規登録ボタンをクリック
   const registerButton = screen.getByTestId("register-button");
@@ -87,7 +90,7 @@ test("投稿内容が未入力の場合にエラーメッセージが表示さ�
 });
 
 test("カテゴリが未選択の場合にエラーメッセージが表示されること", async () => {
-  render(<RegisterArticle />);
+  render(<RegisterArticle setArticles={mockSetArticles} />);
 
   // 新規登録ボタンをクリック
   const registerButton = screen.getByTestId("register-button");
@@ -104,7 +107,7 @@ test("カテゴリが未選択の場合にエラーメッセージが表示さ�
 test("登録ボタン押下後/に遷移すること", async () => {
   render(
     <BrowserRouter>
-      <RegisterArticle />
+      <RegisterArticle setArticles={mockSetArticles} />
     </BrowserRouter>
   );
 

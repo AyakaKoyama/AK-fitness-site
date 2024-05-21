@@ -1,9 +1,9 @@
-import { Routers } from "./Routers";
+import { ArticleManager } from "./components/ArticleManager";
 
 function App() {
   return (
     <>
-      <Routers />
+      <ArticleManager />
     </>
   );
 }

@@ -1,11 +1,41 @@
 import { supabase } from "./supabase";
 
-//仮表示用
-export const getInfo = async () => {
+export const getArticle = async () => {
   const article = await supabase.from("article").select("*");
   console.log(article.data);
+  if (article.error || !article.data) {
+    console.error("Failed to get article data", article.error);
+    return null;
+  }
   return article.data;
 };
+
+export const getCategory = async (article_id: string) => {
+  try {
+    //article_idを元に中間テーブルからcategoryIdを取得
+    const categoryId = await supabase
+      .from("article_category")
+      .select("category_id")
+      .eq("article_id", article_id)
+      .single();
+    console.log("articleId:", article_id);
+    console.log("CategoryId:", categoryId);
+    if (categoryId.error || !categoryId.data) {
+      console.error("Failed to get article`s category:", categoryId.error);
+      return null;
+    }
+    const category = await supabase
+      .from("category")
+      .select("*")
+      .eq("id", categoryId.data.category_id)
+      .single();
+    console.log(category);
+    return category.data;
+  } catch (error) {
+    console.error("Failed to get category :", error);
+  }
+};
+
 export const addArticle = async (
   id: string,
   author: string,
