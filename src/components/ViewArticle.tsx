@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -25,14 +24,9 @@ type ViewArticleProps = {
 };
 
 export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
-  const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate("/");
-  };
-
   return (
     <>
+      <Heading data-testid="title">記事一覧</Heading>
       {loading ? (
         <Spinner />
       ) : (
@@ -45,17 +39,21 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                     <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
                       <Avatar
                         name={article.author}
-                        src="https://bit.ly/sage-adebayo"
+                        src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?q=80&w=2185&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       />
                       <Box>
-                        <Heading size="sm">{article.author}</Heading>
-                        <Text>カテゴリ名：{article.category?.name}</Text>
+                        <Heading data-testid="author" size="sm">
+                          {article.author}
+                        </Heading>
+                        <Text data-testid="category">
+                          カテゴリ名：{article.category?.name}
+                        </Text>
                       </Box>
                     </Flex>
                   </Flex>
                 </CardHeader>
                 <CardBody>
-                  <Text>{article.contents}</Text>
+                  <Text data-testid="contents">{article.contents}</Text>
                 </CardBody>
                 <CardFooter
                   justify="space-between"
@@ -81,9 +79,6 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
           ))}
         </div>
       )}
-      <Button data-testid="back-button" onClick={handleBack}>
-        戻る
-      </Button>
     </>
   );
 };

@@ -3,14 +3,14 @@ import { RegisterArticle } from "../components/RegisterArticle";
 import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 
 const mockAddArticles = jest.fn().mockResolvedValue({
-  articleID: "test",
+  articleID: "1",
   author: "AK",
   contents: "This is a test article",
   categoryID: "1",
 });
 
 const mockAddArticleCategories = jest.fn().mockResolvedValue({
-  articleID: "test",
+  articleID: "1",
   categoryID: "1",
 });
 
@@ -41,21 +41,6 @@ test("タイトルが表示されること", async () => {
   await waitFor(() => {
     const title = screen.getByTestId("title");
     expect(title).toBeInTheDocument();
-  });
-});
-
-test("記事IDが未入力の場合にエラーメッセージが表示されること", async () => {
-  render(<RegisterArticle setArticles={mockSetArticles} />);
-
-  // 新規登録ボタンをクリック
-  const registerButton = screen.getByTestId("register-button");
-  fireEvent.click(registerButton);
-
-  // エラーメッセージが表示されるのを待機
-  await waitFor(() => {
-    // エラーメッセージが表示されていることを確認
-    const errorMessage = screen.queryByText("記事IDの入力は必須です");
-    expect(errorMessage).toBeInTheDocument();
   });
 });
 
@@ -112,9 +97,6 @@ test("登録ボタン押下後/に遷移すること", async () => {
   );
 
   await waitFor(() => {
-    const articleID = screen.getByTestId("articleID");
-    fireEvent.change(articleID, { target: { value: "test" } });
-
     const author = screen.getByTestId("author");
     fireEvent.change(author, { target: { value: "AK" } });
 
