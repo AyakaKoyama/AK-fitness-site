@@ -15,7 +15,6 @@ import { Article } from "../domain/Article";
 import { addArticle, addCategory } from "../utils/supabaseFuntions";
 
 export type Inputs = {
-  articleID: string;
   author: string;
   contents: string;
   categoryID: string;
@@ -37,22 +36,18 @@ export const RegisterArticle = ({ setArticles }: RegisterArticleProps) => {
     console.log(data);
 
     try {
-      const addArticleData = await addArticle(
-        data.articleID,
-        data.author,
-        data.contents
-      );
-      console.log(data.articleID, data.author, data.contents);
+      const addArticleData = await addArticle(data.author, data.contents);
+      console.log(addArticleData);
 
       const addCategoryData = await addCategory(
-        data.articleID,
+        addArticleData.id,
         data.categoryID
       );
-      console.log(data.articleID, data.categoryID);
+      console.log(addArticleData.id, data.categoryID);
 
       setArticles([
         {
-          articleID: addArticleData.articleID,
+          articleID: addArticleData.id,
           author: addArticleData.author,
           contents: addArticleData.contents,
           category: addCategoryData.id,
@@ -71,26 +66,6 @@ export const RegisterArticle = ({ setArticles }: RegisterArticleProps) => {
         <Heading data-testid="title" color="gray.700">
           新規投稿
         </Heading>
-        <Box p={3}>
-          <FormControl isInvalid={!!errors.articleID}>
-            <FormLabel>記事ID(英字のみ可)</FormLabel>
-            <Input
-              data-testid="articleID"
-              placeholder="好きな英単語を入力"
-              size="sm"
-              {...register("articleID", {
-                required: "記事IDの入力は必須です",
-                pattern: {
-                  value: /^[A-Za-z]+$/i,
-                  message: "英字で入力してください",
-                },
-              })}
-            />
-            <FormErrorMessage>
-              {errors.articleID && errors.articleID.message}
-            </FormErrorMessage>
-          </FormControl>
-        </Box>
         <Box p={3}>
           <FormControl isInvalid={!!errors.author}>
             <FormLabel>著者</FormLabel>

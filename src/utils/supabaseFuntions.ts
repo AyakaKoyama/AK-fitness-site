@@ -36,16 +36,11 @@ export const getCategory = async (article_id: string) => {
   }
 };
 
-export const addArticle = async (
-  id: string,
-  author: string,
-  contents: string
-) => {
+export const addArticle = async (author: string, contents: string) => {
   const response = await supabase
     .from("article")
     .insert([
       {
-        id,
         author,
         contents,
       },
