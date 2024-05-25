@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { ViewArticle } from "./ViewArticle";
 import { RegisterArticle } from "./RegisterArticle";
 import { getArticle, getCategory } from "../utils/supabaseFuntions";
+import { ViewArticleDetail } from "./ViewArticleDetail";
 
 export const ArticleManager = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -51,6 +52,10 @@ export const ArticleManager = () => {
       <Route
         path="/register"
         element={<RegisterArticle setArticles={setArticles} />}
+      />
+      <Route
+        path="/:id"
+        element={<ViewArticleDetail articles={articles} loading={loading} />}
       />
     </Routes>
   );

@@ -47,7 +47,7 @@ export const RegisterArticle = ({ setArticles }: RegisterArticleProps) => {
 
       setArticles([
         {
-          articleID: addArticleData.id,
+          id: addArticleData.id,
           author: addArticleData.author,
           contents: addArticleData.contents,
           category: addCategoryData.id,

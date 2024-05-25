@@ -12,10 +12,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
+import { useNavigate } from "react-router-dom";
 
 type ViewArticleProps = {
   articles: {
-    articleID: string;
+    id: string;
     author: string;
     contents: string;
     category: Category | null;
@@ -24,6 +25,9 @@ type ViewArticleProps = {
 };
 
 export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
+  const navigate = useNavigate();
+  console.log(articles);
+
   return (
     <>
       <Heading data-testid="title">記事一覧</Heading>
@@ -32,8 +36,11 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
       ) : (
         <div>
           {articles.map((article) => (
-            <div key={article.articleID}>
-              <Card>
+            <div key={article.id}>
+              <Card
+                onClick={() => navigate(`/${article.id}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <CardHeader>
                   <Flex>
                     <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -53,7 +60,9 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                   </Flex>
                 </CardHeader>
                 <CardBody>
-                  <Text data-testid="contents">{article.contents}</Text>
+                  <Text data-testid="contents">
+                    {article.contents.slice(0, 10)}...
+                  </Text>
                 </CardBody>
                 <CardFooter
                   justify="space-between"
@@ -70,7 +79,14 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                   <Button flex="1" variant="ghost">
                     編集
                   </Button>
-                  <Button flex="1" variant="ghost">
+                  <Button
+                    flex="1"
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/${article.id}`);
+                    }}
+                  >
                     記事を見る
                   </Button>
                 </CardFooter>
