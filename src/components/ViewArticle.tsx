@@ -36,8 +36,9 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
       ) : (
         <div>
           {articles.map((article) => (
-            <div key={article.id}>
+            <div key={article.id} data-testid="article-id">
               <Card
+                data-testid="view-article"
                 onClick={() => navigate(`/${article.id}`)}
                 style={{ cursor: "pointer" }}
               >
@@ -80,6 +81,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                     編集
                   </Button>
                   <Button
+                    data-testid="view-button"
                     flex="1"
                     variant="ghost"
                     onClick={(e) => {

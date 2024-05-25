@@ -49,11 +49,13 @@ export const ViewArticleDetail = ({
                 src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?q=80&w=2185&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               />
               <Box ml={3}>
-                <Heading size="lg">{article.author}</Heading>
-                <Text>{article.category?.name}</Text>
+                <Heading size="lg" data-testid="author">
+                  {article.author}
+                </Heading>
+                <Text data-testid="category">{article.category?.name}</Text>
               </Box>
             </Flex>
-            <Text>{article.contents}</Text>
+            <Text data-testid="contents">{article.contents}</Text>
           </Box>
           <Button data-testid="back-button" onClick={handleBack}>
             戻る
