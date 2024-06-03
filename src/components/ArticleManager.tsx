@@ -5,6 +5,7 @@ import { ViewArticle } from "./ViewArticle";
 import { RegisterArticle } from "./RegisterArticle";
 import { getArticle, getCategory } from "../utils/supabaseFuntions";
 import { ViewArticleDetail } from "./ViewArticleDetail";
+import { ViewArticleByCategory } from "./ViewArticleByCategory";
 
 export const ArticleManager = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -56,6 +57,12 @@ export const ArticleManager = () => {
       <Route
         path="/:id"
         element={<ViewArticleDetail articles={articles} loading={loading} />}
+      />
+      <Route
+        path="/category/:categoryName"
+        element={
+          <ViewArticleByCategory articles={articles} loading={loading} />
+        }
       />
     </Routes>
   );

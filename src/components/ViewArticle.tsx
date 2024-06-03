@@ -8,11 +8,13 @@ import {
   CardHeader,
   Flex,
   Heading,
+  Select,
   Spinner,
   Text,
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type ViewArticleProps = {
   articles: {
@@ -28,9 +30,39 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
   const navigate = useNavigate();
   console.log(articles);
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const handleCategoryNavigate = () => {
+    if (selectedCategory) {
+      navigate(`/category/${selectedCategory}`);
+    }
+  };
+
   return (
     <>
       <Heading data-testid="title">記事一覧</Heading>
+      <Box mb={4}>
+        <Select
+          placeholder="カテゴリを選択"
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+        >
+          <option value="食事">食事</option>
+          <option value="運動">運動</option>
+          <option value="メンタルヘルス">メンタルヘルス</option>
+          <option value="美容">美容</option>
+          <option value="アドバイス">アドバイス</option>
+        </Select>
+        <Button mt={2} onClick={handleCategoryNavigate}>
+          カテゴリで絞り込み
+        </Button>
+      </Box>
       {loading ? (
         <Spinner />
       ) : (

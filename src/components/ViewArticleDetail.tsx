@@ -26,6 +26,7 @@ export const ViewArticleDetail = ({
 }: ViewArticleDetailProps) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  console.log(id);
   //id を文字列として比較するために、toString() メソッドを使用
   const article = articles.find((a) => a.id.toString() === id);
 
