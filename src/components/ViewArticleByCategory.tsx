@@ -8,7 +8,6 @@ import {
   CardHeader,
   Flex,
   Heading,
-  Select,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -51,10 +50,7 @@ export const ViewArticleByCategory = ({
           {filteredArticles.length > 0 ? (
             filteredArticles.map((article) => (
               <Box key={article.id} p={5}>
-                <Card
-                  onClick={() => navigate(`/${article.id}`)}
-                  style={{ cursor: "pointer" }}
-                >
+                <Card>
                   <CardHeader>
                     <Flex>
                       <Flex
@@ -92,6 +88,12 @@ export const ViewArticleByCategory = ({
                       },
                     }}
                   >
+                    <Button flex="1" variant="ghost">
+                      削除
+                    </Button>
+                    <Button flex="1" variant="ghost">
+                      編集
+                    </Button>
                     <Button
                       data-testid="view-button"
                       flex="1"

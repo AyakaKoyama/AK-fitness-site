@@ -32,6 +32,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  //画面遷移時にカテゴリデータの保持が必要
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -69,11 +70,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
         <div>
           {articles.map((article) => (
             <div key={article.id} data-testid="article-id">
-              <Card
-                data-testid="view-article"
-                onClick={() => navigate(`/${article.id}`)}
-                style={{ cursor: "pointer" }}
-              >
+              <Card data-testid="view-article">
                 <CardHeader>
                   <Flex>
                     <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
