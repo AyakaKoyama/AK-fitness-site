@@ -41,7 +41,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
 
   const handleCategoryNavigate = () => {
     if (selectedCategory) {
-      navigate(`/category/${selectedCategory}`);
+      navigate(`/view/${selectedCategory}`);
     }
   };
 

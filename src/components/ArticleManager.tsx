@@ -59,7 +59,7 @@ export const ArticleManager = () => {
         element={<ViewArticleDetail articles={articles} loading={loading} />}
       />
       <Route
-        path="/category/:categoryName"
+        path="/view/:categoryName"
         element={
           <ViewArticleByCategory articles={articles} loading={loading} />
         }

@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
 
 type ViewArticleByCategoryProps = {
   articles: {
@@ -95,7 +94,7 @@ export const ViewArticleByCategory = ({
                       編集
                     </Button>
                     <Button
-                      data-testid="view-button"
+                      data-testid="view-article"
                       flex="1"
                       variant="ghost"
                       onClick={() => navigate(`/${article.id}`)}
