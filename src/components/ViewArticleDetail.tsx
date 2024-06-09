@@ -57,6 +57,19 @@ export const ViewArticleDetail = ({
               </Box>
             </Flex>
             <Text data-testid="contents">{article.contents}</Text>
+            <Button flex="1" variant="ghost">
+              削除
+            </Button>
+            <Button
+              flex="1"
+              variant="ghost"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/edit/${article.id}`);
+              }}
+            >
+              編集
+            </Button>
           </Box>
           <Button data-testid="back-button" onClick={handleBack}>
             戻る

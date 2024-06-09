@@ -6,6 +6,7 @@ import { RegisterArticle } from "./RegisterArticle";
 import { getArticle, getCategory } from "../utils/supabaseFuntions";
 import { ViewArticleDetail } from "./ViewArticleDetail";
 import { ViewArticleByCategory } from "./ViewArticleByCategory";
+import { EditArticle } from "./EditArticle";
 
 export const ArticleManager = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -63,6 +64,10 @@ export const ArticleManager = () => {
         element={
           <ViewArticleByCategory articles={articles} loading={loading} />
         }
+      />
+      <Route
+        path="/edit/:id"
+        element={<EditArticle articles={articles} setArticles={setArticles} />}
       />
     </Routes>
   );

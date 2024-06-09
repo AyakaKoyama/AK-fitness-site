@@ -90,7 +90,11 @@ export const ViewArticleByCategory = ({
                     <Button flex="1" variant="ghost">
                       削除
                     </Button>
-                    <Button flex="1" variant="ghost">
+                    <Button
+                      flex="1"
+                      variant="ghost"
+                      onClick={() => navigate(`/edit/${article.id}`)}
+                    >
                       編集
                     </Button>
                     <Button

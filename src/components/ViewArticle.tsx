@@ -106,7 +106,14 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                   <Button flex="1" variant="ghost">
                     削除
                   </Button>
-                  <Button flex="1" variant="ghost">
+                  <Button
+                    flex="1"
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/edit/${article.id}`);
+                    }}
+                  >
                     編集
                   </Button>
                   <Button

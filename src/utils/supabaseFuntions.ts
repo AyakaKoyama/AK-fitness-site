@@ -82,3 +82,44 @@ export const addCategory = async (article_id: string, category_id: string) => {
 
   return category.data;
 };
+
+export const updateArticle = async (
+  id: string,
+  author: string,
+  contents: string
+) => {
+  const response = await supabase
+    .from("article")
+    .update({
+      author,
+      contents,
+    })
+    .eq("id", id)
+    .select();
+  if (response.error) {
+    console.error("Failed to update article data", response.error);
+  }
+  if (response.data !== null) {
+    return response.data[0];
+  }
+};
+
+export const updateCategory = async (
+  article_id: string,
+  category_id: string
+) => {
+  const response = await supabase
+    .from("article_category")
+    .update({
+      category_id,
+    })
+    .eq("article_id", article_id)
+    .select();
+
+  if (response.error) {
+    console.error("Failed to update category data", response.error);
+  }
+  if (response.data && response.data.length > 0) {
+    return response.data[0];
+  }
+};
