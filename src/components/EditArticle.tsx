@@ -36,9 +36,13 @@ export const EditArticle = ({ setArticles, articles }: EditArticleProps) => {
   const navigate = useNavigate();
   const [initialValues, setInitialValues] = useState<Inputs | null>(null);
   console.log(id);
+  console.log(articles);
   //編集対象の記事を検索し、initialValuesステートに設定
   useEffect(() => {
-    const existingArticle = articles.find((article) => article.id === id);
+    const existingArticle = articles.find(
+      (article) => article.id.toString() === id
+    );
+    console.log("existingArticle:", existingArticle);
     if (existingArticle) {
       setInitialValues({
         id: existingArticle.id,
@@ -49,7 +53,11 @@ export const EditArticle = ({ setArticles, articles }: EditArticleProps) => {
           : "",
       });
     }
+    console.log("existingArticle:", existingArticle);
   }, [id, articles]);
+
+  //nullになる
+  console.log(initialValues);
 
   //フォームが初期化される際に、defaultValuesとしてinitialValuesを渡す
   const {
@@ -71,7 +79,6 @@ export const EditArticle = ({ setArticles, articles }: EditArticleProps) => {
       reset(initialValues);
     }
   }, [initialValues, reset]);
-
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
 
@@ -116,6 +123,9 @@ export const EditArticle = ({ setArticles, articles }: EditArticleProps) => {
     } catch (error) {
       console.error("Failed to submit form data:", error);
     }
+  };
+  const handleBack = () => {
+    navigate("/");
   };
 
   return (
@@ -187,6 +197,9 @@ export const EditArticle = ({ setArticles, articles }: EditArticleProps) => {
               投稿
             </Button>
           </Box>
+          <Button data-testid="back-button" onClick={handleBack}>
+            戻る
+          </Button>
         </form>
       ) : (
         <p>記事を読み込んでいます...</p>

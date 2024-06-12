@@ -91,6 +91,7 @@ export const ViewArticleByCategory = ({
                       削除
                     </Button>
                     <Button
+                      data-testid="edit-button"
                       flex="1"
                       variant="ghost"
                       onClick={() => navigate(`/edit/${article.id}`)}

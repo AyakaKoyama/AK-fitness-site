@@ -107,6 +107,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                     削除
                   </Button>
                   <Button
+                    data-testid="edit-button"
                     flex="1"
                     variant="ghost"
                     onClick={(e) => {
