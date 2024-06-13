@@ -59,6 +59,9 @@ export const RegisterArticle = ({ setArticles }: RegisterArticleProps) => {
       console.error("Failed to submit form data:", error);
     }
   };
+  const handleBack = () => {
+    navigate("/");
+  };
 
   return (
     <>
@@ -128,6 +131,9 @@ export const RegisterArticle = ({ setArticles }: RegisterArticleProps) => {
             投稿
           </Button>
         </Box>
+        <Button data-testid="back-button" onClick={handleBack}>
+          戻る
+        </Button>
       </form>
     </>
   );

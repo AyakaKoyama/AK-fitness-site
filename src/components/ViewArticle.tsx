@@ -48,6 +48,17 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
   return (
     <>
       <Heading data-testid="title">記事一覧</Heading>
+      <Box>
+        <Button
+          colorScheme="green"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/register`);
+          }}
+        >
+          記事を新しく投稿
+        </Button>
+      </Box>
       <Box mb={4}>
         <Select
           placeholder="カテゴリを選択"
