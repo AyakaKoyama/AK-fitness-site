@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteArticle } from "../utils/supabaseFuntions";
 
 type ViewArticleByCategoryProps = {
   articles: {
@@ -39,6 +40,11 @@ export const ViewArticleByCategory = ({
   const handleBack = () => {
     navigate("/");
   };
+
+  const deleteItem = async (articleId: string) => {
+    await deleteArticle(articleId);
+  };
+
   return (
     <>
       <Heading data-testid="title">カテゴリ: {categoryName}</Heading>
@@ -87,7 +93,12 @@ export const ViewArticleByCategory = ({
                       },
                     }}
                   >
-                    <Button flex="1" variant="ghost">
+                    <Button
+                      flex="1"
+                      variant="ghost"
+                      data-testid="delete-button"
+                      onClick={() => deleteItem(article.id)}
+                    >
                       削除
                     </Button>
                     <Button

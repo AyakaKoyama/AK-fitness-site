@@ -49,3 +49,33 @@ test("戻るボタンをクリックすると、/に遷移すること", async (
   console.log(mockedNavigator.mock.calls);
   expect(mockedNavigator).toHaveBeenCalledWith("/");
 });
+
+test("編集ボタンを押すと/edit/:idに遷移する", async () => {
+  render(
+    <BrowserRouter>
+      <ViewArticleDetail articles={mockedArticles} loading={loading} />
+    </BrowserRouter>
+  );
+
+  await waitFor(() => {
+    const editButton = screen.getByTestId("edit-button");
+    fireEvent.click(editButton);
+  });
+
+  await waitFor(() => {
+    expect(mockedNavigator).toHaveBeenCalledWith("/edit/1");
+  });
+});
+
+test("削除ボタンがある", async () => {
+  render(
+    <BrowserRouter>
+      <ViewArticleDetail articles={mockedArticles} loading={loading} />
+    </BrowserRouter>
+  );
+
+  await waitFor(() => {
+    const deleteButton = screen.getByTestId("delete-button");
+    expect(deleteButton).toBeInTheDocument();
+  });
+});

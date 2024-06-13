@@ -15,6 +15,7 @@ import {
 import { Category } from "../domain/Article";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { deleteArticle } from "../utils/supabaseFuntions";
 
 type ViewArticleProps = {
   articles: {
@@ -45,12 +46,18 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
     }
   };
 
+  const deleteItem = async (articleId: string) => {
+    await deleteArticle(articleId);
+  };
+
   return (
     <>
       <Heading data-testid="title">記事一覧</Heading>
-      <Box>
+      <Box display="flex" alignItems="center" justifyContent="flex-end">
         <Button
           colorScheme="green"
+          mb={5}
+          mt={5}
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/register`);
@@ -71,7 +78,12 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
           <option value="美容">美容</option>
           <option value="アドバイス">アドバイス</option>
         </Select>
-        <Button mt={2} onClick={handleCategoryNavigate}>
+        <Button
+          ml="auto"
+          display="block"
+          mt={2}
+          onClick={handleCategoryNavigate}
+        >
           カテゴリで絞り込み
         </Button>
       </Box>
@@ -114,7 +126,12 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                     },
                   }}
                 >
-                  <Button flex="1" variant="ghost">
+                  <Button
+                    data-testid="delete-button"
+                    flex="1"
+                    variant="ghost"
+                    onClick={() => deleteItem(article.id)}
+                  >
                     削除
                   </Button>
                   <Button

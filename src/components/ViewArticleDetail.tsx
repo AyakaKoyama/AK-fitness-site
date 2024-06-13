@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteArticle } from "../utils/supabaseFuntions";
 
 type ViewArticleDetailProps = {
   articles: {
@@ -37,6 +38,11 @@ export const ViewArticleDetail = ({
   const handleBack = () => {
     navigate("/");
   };
+
+  const deleteItem = async (articleId: string) => {
+    await deleteArticle(articleId);
+  };
+
   return (
     <>
       {loading ? (
@@ -57,7 +63,12 @@ export const ViewArticleDetail = ({
               </Box>
             </Flex>
             <Text data-testid="contents">{article.contents}</Text>
-            <Button flex="1" variant="ghost">
+            <Button
+              flex="1"
+              variant="ghost"
+              data-testid="delete-button"
+              onClick={() => deleteItem(article.id)}
+            >
               削除
             </Button>
             <Button

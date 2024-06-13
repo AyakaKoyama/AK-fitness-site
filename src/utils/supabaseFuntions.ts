@@ -123,3 +123,11 @@ export const updateCategory = async (
     return response.data[0];
   }
 };
+
+export const deleteArticle = async (id: string) => {
+  const response = await supabase.from("article").delete().eq("id", id);
+  if (response.error) {
+    console.error("Failed to delete article data", response.error);
+  }
+  return response.data;
+};
