@@ -1,21 +1,22 @@
 import {
-  Avatar,
   Box,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Flex,
   Heading,
+  Link,
   Select,
   Spinner,
-  Text,
+  chakra,
+  Image,
+  ButtonGroup,
+  IconButton,
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { deleteArticle } from "../utils/supabaseFuntions";
+import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
+import { AiFillEdit } from "react-icons/ai";
 
 type ViewArticleProps = {
   articles: {
@@ -93,71 +94,111 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
         <div>
           {articles.map((article) => (
             <div key={article.id} data-testid="article-id">
-              <Card data-testid="view-article">
-                <CardHeader>
-                  <Flex>
-                    <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                      <Avatar
-                        name={article.author}
+              <Flex
+                bg="#edf3f8"
+                _dark={{ bg: "#3e3e3e" }}
+                p={50}
+                w="full"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Box
+                  data-testid="view-article"
+                  mx="auto"
+                  px={50}
+                  py={4}
+                  rounded="lg"
+                  shadow="lg"
+                  bg="white"
+                  _dark={{ bg: "gray.800" }}
+                  maxW="2xl"
+                  minH="200px"
+                  minW="300px"
+                >
+                  <Flex justifyContent="flex-start" alignItems="center">
+                    <Link
+                      data-testid="category"
+                      px={3}
+                      py={1}
+                      bg="gray.600"
+                      color="gray.100"
+                      fontSize="sm"
+                      fontWeight="700"
+                      rounded="md"
+                      _hover={{ bg: "gray.500" }}
+                      onClick={handleCategoryNavigate}
+                      mb={5}
+                    >
+                      {article.category?.name}
+                    </Link>
+                  </Flex>
+
+                  <Box mt={2} data-testid="contents">
+                    <chakra.p
+                      mt={2}
+                      color="gray.600"
+                      _dark={{ color: "gray.300" }}
+                    >
+                      {article.contents.slice(0, 10)}...
+                    </chakra.p>
+                  </Box>
+
+                  <Flex justifyContent="flex-end" alignItems="center" mt={4}>
+                    <Flex alignItems="center">
+                      <Image
+                        mx={4}
+                        w={10}
+                        h={10}
+                        mb={5}
+                        rounded="full"
+                        fit="cover"
+                        display={{ base: "none", sm: "block" }}
                         src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?q=80&w=2185&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="avatar"
                       />
-                      <Box>
-                        <Heading data-testid="author" size="sm">
-                          {article.author}
-                        </Heading>
-                        <Text data-testid="category">
-                          カテゴリ名：{article.category?.name}
-                        </Text>
-                      </Box>
+                      <Link
+                        data-testid="author"
+                        color="gray.700"
+                        _dark={{ color: "gray.200" }}
+                        fontWeight="700"
+                        cursor="pointer"
+                      >
+                        {article.author}
+                      </Link>
                     </Flex>
                   </Flex>
-                </CardHeader>
-                <CardBody>
-                  <Text data-testid="contents">
-                    {article.contents.slice(0, 10)}...
-                  </Text>
-                </CardBody>
-                <CardFooter
-                  justify="space-between"
-                  flexWrap="wrap"
-                  sx={{
-                    "& > button": {
-                      minW: "136px",
-                    },
-                  }}
-                >
-                  <Button
-                    data-testid="delete-button"
-                    flex="1"
-                    variant="ghost"
-                    onClick={() => deleteItem(article.id)}
-                  >
-                    削除
-                  </Button>
-                  <Button
-                    data-testid="edit-button"
-                    flex="1"
-                    variant="ghost"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/edit/${article.id}`);
-                    }}
-                  >
-                    編集
-                  </Button>
-                  <Button
-                    data-testid="view-button"
-                    flex="1"
-                    variant="ghost"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/${article.id}`);
-                    }}
-                  >
-                    記事を見る
-                  </Button>
-                </CardFooter>
-              </Card>
+                  <ButtonGroup variant="solid" size="sm" spacing={3}>
+                    <IconButton
+                      data-testid="view-button"
+                      colorScheme="gray"
+                      icon={<BsBoxArrowUpRight />}
+                      aria-label="Up"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/${article.id}`);
+                      }}
+                    />
+                    <IconButton
+                      data-testid="edit-button"
+                      colorScheme="gray"
+                      icon={<AiFillEdit />}
+                      aria-label="Edit"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/edit/${article.id}`);
+                      }}
+                    />
+                    <IconButton
+                      data-testid="delete-button"
+                      colorScheme="gray"
+                      variant="outline"
+                      icon={<BsFillTrashFill />}
+                      aria-label="Delete"
+                      onClick={() => deleteItem(article.id)}
+                    />
+                  </ButtonGroup>
+                </Box>
+              </Flex>
             </div>
           ))}
         </div>
