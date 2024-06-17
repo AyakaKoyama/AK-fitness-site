@@ -56,7 +56,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
       <Heading data-testid="title">記事一覧</Heading>
       <Box display="flex" alignItems="center" justifyContent="flex-end">
         <Button
-          colorScheme="green"
+          colorScheme="gray"
           mb={5}
           mt={5}
           onClick={(e) => {

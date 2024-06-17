@@ -191,7 +191,7 @@ export const EditArticle = ({ setArticles, articles }: EditArticleProps) => {
             <Button
               data-testid="register-button"
               type="submit"
-              colorScheme="green"
+              colorScheme="gray.600"
               variant="outline"
             >
               投稿

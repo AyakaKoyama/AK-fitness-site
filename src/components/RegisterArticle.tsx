@@ -125,7 +125,7 @@ export const RegisterArticle = ({ setArticles }: RegisterArticleProps) => {
           <Button
             data-testid="register-button"
             type="submit"
-            colorScheme="green"
+            colorScheme="gray.600"
             variant="outline"
           >
             投稿
