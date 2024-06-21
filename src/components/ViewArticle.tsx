@@ -15,16 +15,10 @@ import {
   useColorMode,
   useColorModeValue,
   HStack,
-  AlertDialogOverlay,
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogBody,
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
 import { useNavigate } from "react-router-dom";
-import { MutableRefObject, useState } from "react";
+import { useState } from "react";
 import { deleteArticle } from "../utils/supabaseFuntions";
 import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
 import { AiFillEdit, AiFillGithub, AiOutlineMenu } from "react-icons/ai";
@@ -33,6 +27,7 @@ import { FaHeart, FaMoon, FaSun } from "react-icons/fa";
 import React from "react";
 import { useViewportScroll } from "framer-motion";
 import { useDisclosure } from "@chakra-ui/react";
+import { Alert } from "./atoms/Alert";
 
 type ViewArticleProps = {
   articles: {
@@ -47,6 +42,7 @@ type ViewArticleProps = {
 export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
   const navigate = useNavigate();
   console.log(articles);
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -360,7 +356,12 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
                       variant="outline"
                       icon={<BsFillTrashFill />}
                       aria-label="Delete"
-                      onClick={() => deleteItem(article.id)}
+                      onClick={onOpen}
+                    />
+                    <Alert
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      onDelete={() => deleteItem(article.id)}
                     />
                   </ButtonGroup>
                 </Box>

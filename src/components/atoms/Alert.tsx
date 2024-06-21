@@ -10,9 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 
-export const Alert = () => {
-  const { isOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef();
+interface AlertProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onDelete: () => void;
+}
+
+export const Alert: React.FC<AlertProps> = ({ isOpen, onClose, onDelete }) => {
+  const cancelRef = React.useRef<HTMLButtonElement>(null);
   return (
     <>
       <AlertDialog
@@ -32,7 +37,14 @@ export const Alert = () => {
               <Button ref={cancelRef} onClick={onClose}>
                 キャンセル
               </Button>
-              <Button colorScheme="red" onClick={onClose} ml={3}>
+              <Button
+                colorScheme="blue"
+                onClick={() => {
+                  onDelete();
+                  onClose();
+                }}
+                ml={3}
+              >
                 削除
               </Button>
             </AlertDialogFooter>
