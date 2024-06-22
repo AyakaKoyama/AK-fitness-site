@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { Category } from "../domain/Article";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { deleteArticle } from "../utils/supabaseFuntions";
 import { BsBoxArrowUpRight, BsFillTrashFill } from "react-icons/bs";
 import { AiFillEdit, AiFillGithub, AiOutlineMenu } from "react-icons/ai";
@@ -71,7 +71,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
 
   const bg = useColorModeValue("white", "gray.800");
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const [y, setY] = React.useState(0);
   console.log(y);

@@ -75,7 +75,7 @@ test("記事押下後/:idに遷移すること", async () => {
 
   await waitFor(() => {
     // 記事をクリック
-    const article = screen.getByTestId("view-article");
+    const article = screen.getByTestId("view-button");
     fireEvent.click(article);
   });
   await waitFor(() => {
