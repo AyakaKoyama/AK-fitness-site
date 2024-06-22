@@ -74,6 +74,7 @@ export const ViewArticle = ({ articles, loading }: ViewArticleProps) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
 
   const [y, setY] = React.useState(0);
+  console.log(y);
   // const height = ref.current ? ref.current.getBoundingClientRect() : 0;
 
   const { scrollY } = useViewportScroll();
